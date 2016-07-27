@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smily game</title>
+<style>
+img{position: absolute}
+div{position: absolute;
+			height:480px;
+			width:600px}
+#rightside{left: 600px;
+			border-left: 1px solid black}
+}
+
+</style>
+</head>
+<body onload="generateFaces()">
+<h1>Matching Game</h1>
+<p>
+ Click on the extra smiling face on the left 
+ <button id="restart1" onclick="generateFaces2()" value="Restart">Restart</button></p>
+
+<div id="leftside"></div>
+<div id="rightside"></div>
+<script>
+var numberofFaces = 5;
+var theLeftSide = document.getElementById("leftside");
+var theRightSide = document.getElementById("rightside");
+var thebody = document.getElementsByTagName("body")[0];
+function generateFaces2(){
+while(theLeftSide.firstChild){
+	theLeftSide.removeChild(theLeftSide.firstChild)
+	}
+	while(theRightSide.firstChild){
+	theRightSide.removeChild(theRightSide.firstChild)
+	}
+numberofFaces = 5;
+generateFaces();
+}
+function generateFaces(){
+var i, divi, rand1, rand2, y;
+
+for(i=0;i<numberofFaces;i++){
+
+		rand1 = Math.random()*500;
+		rand1 = Math.floor(rand1);
+		rand2 = Math.random()*380;
+		rand2 = Math.floor(rand2);
+		var x = document.createElement("img");
+		x.setAttribute("src","smile.png");
+		x.style.top = rand2 + "px";
+		x.style.left = rand1 +"px";
+		theLeftSide.appendChild(x);
+}
+
+
+var leftSideImages = theLeftSide.cloneNode(true);
+leftSideImages.removeChild(leftSideImages.lastChild);
+theRightSide.appendChild(leftSideImages);
+
+
+theLeftSide.lastChild.onclick = function nextLevel(event){
+	while(theLeftSide.firstChild){
+	theLeftSide.removeChild(theLeftSide.firstChild)
+	}
+	while(theRightSide.firstChild){
+	theRightSide.removeChild(theRightSide.firstChild)
+	}
+	event.stopPropagation();
+	numberofFaces= numberofFaces+5;
+	generateFaces();
+};
+
+theLeftSide.onclick = function gameOver(){
+alert("Game Over!");
+thebody.onclick = null;
+theLeftSide.lastChild.onclick = null;
+};
+theRightSide.onclick = function gameOver(){
+alert("Game Over!");
+thebody.onclick = null;
+theLeftSide.lastChild.onclick = null;
+};
+}
+</script>
+</body>
+</html>

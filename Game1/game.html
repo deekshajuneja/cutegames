@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<title> assignment 2 - guessing game </title>
+	</head>
+	<body onload = 'do_game()'>
+		<script>
+			var target_index;
+			var target;
+			var guess_input_text;
+			var guess_input;
+			var finished = false;
+			var guesses = 0;
+			var colors = ["AliceBlue","AntiqueWhite","Bisque","Brown","Crimson","HotPink","LightCoral","MediumBlue","Red","Yellow"];
+			var random_index;
+			
+			function do_game(){
+				var mul = colors.length;
+				target_index = Math.random()*mul;
+				target_index = Math.floor(target_index);
+				target = colors[target_index];
+				while(!finished){
+					guess_input = prompt("I am thinking of one of these colors \n"+ colors+"\n What color am I thinking of?\n");
+					guesses++;
+					finished = check_guess()
+				}
+			}
+			
+			function check_guess(){
+			
+				if(colors.indexOf(guess_input)==-1){
+					alert("Color not recognised, please input a valid color");
+					return false;
+				}
+				if(colors.indexOf(guess_input)<colors.indexOf(target)){
+					alert("Try higher index");
+					return false;
+				}
+				if(colors.indexOf(guess_input)>colors.indexOf(target)){
+					alert("Try lower index");
+					return false;
+				}
+				if(colors.indexOf(guess_input)==colors.indexOf(target)){
+				
+					myBody=document.getElementsByTagName("body")[0];
+					myBody.style.background=colors[target_index];
+					
+					alert("Found\nYou took "+guesses+" guesses");
+					
+					return true;
+				}
+			}
+		</script>
+	</body>
+</html>
